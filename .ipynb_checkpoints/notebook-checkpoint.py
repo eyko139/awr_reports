@@ -116,7 +116,7 @@ import glob
 # folder = 'C:\\Users\masandma\\Desktop\\OPTSK00561730\\OPTSK00561730'
 # folder = 'C:\\Users\\masandma\\OneDrive - Microsoft\\Arbeit\\ORCAS\\ORACLE\\customers\\AH'
 # folder = 'C:\\Users\\masandma\\Desktop\\coba'
-# folder = "C:\\fakepath\\"
+folder = "C:\\fakepath\\"
 
 # queries are of the form [row_name, col_name],
 # either element can be empty quotes
@@ -151,26 +151,21 @@ queries=[
     ['optimizer_features_enable','Begin value'],
 ]
 
-#Not needes anymore, Script does not check Folders anymore but get passed the uploaded Files content as a String directly
-    # filenames = [fileName]
-    # filenames = find_files(folder)
-    # filenames = fileNames
+# filenames = [fileName]
+# filenames = find_files(folder)
+filenames = []
 
-if len(fileNames) == 0:
+if len(filenames) == 0:
     print("didn't find any files!")
 else:
     keys = create_keys(queries)
     res_dict = {}
-    res_dict["filename"] = []
-    for file_name in fileNames:
-        res_dict["filename"].append(file_name)
-
-    # res_dict['filename'] = fileNames
+    res_dict['filename'] = filenames
     for key in keys:
         res_dict[key] = []
 
-    for index, filename in enumerate(fileNames):
-        info = run(fileTexts[index], queries)
+    for filename in filenames:
+        info = run(fileText, queries)
 
         for entry in info:
             key = create_key(entry)
@@ -179,7 +174,5 @@ else:
     df = pd.DataFrame(res_dict)
     df.to_csv("coba.csv")
 
-#This last expression gets returned to the Javascript side, it was previously "df.head()".
-#However, this type of Object cannot be returned to JS.
-df.to_csv(index=False)
-
+# df.to_csv(index=False)
+fileNames
